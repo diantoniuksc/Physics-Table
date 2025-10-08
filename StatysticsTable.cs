@@ -30,11 +30,16 @@ namespace SolvePhysics
         //E - expected error in %
         public double E { get; set; }
 
+        // n
+        public int N { get; set; }
+
+        public const double Alpha = 0.95;
 
         public StatysticsTable(char quantity, double[] examples)
         {
             _quantity = quantity;
             _examplesArr = examples;
+            N = examples.Length;
         }
 
 
@@ -45,6 +50,10 @@ namespace SolvePhysics
             Console.WriteLine();
 
             CalculateDeltaQi();
+            Console.WriteLine("----- -----");
+            Console.WriteLine();
+
+            CalculateSQ();
             Console.WriteLine("----- -----");
             Console.WriteLine();
         }
@@ -61,10 +70,9 @@ namespace SolvePhysics
             }
             Console.WriteLine(sum.ToString());
 
-            int n = _examplesArr.Length;
-            Console.WriteLine($"<{_quantity}> = {sum} / {n}");
+            Console.WriteLine($"<{_quantity}> = {sum} / {N}");
 
-            AvgQ = (double)sum / n;
+            AvgQ = (double)sum / N;
             Console.WriteLine($"ANSWER: <{_quantity} = {AvgQ}>");
         }
 
@@ -80,6 +88,24 @@ namespace SolvePhysics
                 Console.WriteLine($"Delta{_quantity}{count} = {value} - {AvgQ} = {DeltaQi[count]}");
                 count++;
             }
+        }
+
+        public void CalculateSQ()
+        {
+            Console.WriteLine($"S<{_quantity}> = sqrt(sum(delta({_quantity}i^2)) / n)");
+
+            double sumDeltaQiSq = 0;
+
+            foreach(var value in DeltaQi)
+            {
+                sumDeltaQiSq += value * value;
+            }
+
+            Console.WriteLine($"sum(delta({_quantity}i^2)) = {sumDeltaQiSq}");
+            Console.WriteLine($"n = {N}");
+
+            SQ = Math.Sqrt((double)sumDeltaQiSq / N);
+            Console.WriteLine($"ANSWER: S<{_quantity}> = {SQ}");
         }
     }
 }
