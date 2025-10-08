@@ -12,6 +12,18 @@ namespace SolvePhysics
         private char _quantity;
         private double[] _examplesArr;
 
+
+        public StatysticsTable(char quantity, double[] examples)
+        {
+            _quantity = quantity;
+            _examplesArr = examples;
+            N = examples.Length;
+        }
+
+
+        // n
+        public static int N { get; set; }
+
         //<quantity> - <p> <g>
         public double AvgQ { get; set; }
 
@@ -30,18 +42,7 @@ namespace SolvePhysics
         //E - expected error in %
         public double E { get; set; }
 
-        // n
-        public int N { get; set; }
-
         public const double Alpha = 0.95;
-
-        public StatysticsTable(char quantity, double[] examples)
-        {
-            _quantity = quantity;
-            _examplesArr = examples;
-            N = examples.Length;
-        }
-
 
         public void PrintTableandCalculations()
         {
@@ -66,6 +67,11 @@ namespace SolvePhysics
             Console.WriteLine();
 
             CalculateE();
+            Console.WriteLine("----- -----");
+            Console.WriteLine();
+
+            Console.WriteLine($"FINAL ANSWER: {_quantity} = (<{_quantity}> +- delta<{_quantity}>) if aplha = ...");
+            Console.WriteLine($"FINAL ANSWER: {_quantity} = ({AvgQ} +- {DeltaQT}) if aplha = ...");
         }
 
 
@@ -83,7 +89,7 @@ namespace SolvePhysics
             Console.WriteLine($"<{_quantity}> = {sum} / {N}");
 
             AvgQ = (double)sum / N;
-            Console.WriteLine($"ANSWER: <{_quantity} = {AvgQ}>");
+            Console.WriteLine($"ANSWER: <{_quantity}> = {AvgQ}");
         }
 
         public void CalculateDeltaQi()
@@ -91,11 +97,13 @@ namespace SolvePhysics
             Console.WriteLine($"Delta{_quantity}i = {_quantity}i - <{_quantity}>");
 
             Console.WriteLine("ANSWERS:");
-            int count = 1;
+            int count = 0;
+            DeltaQi = new double[N];
+
             foreach (double value in _examplesArr)
             {
                 DeltaQi[count] = value - AvgQ;
-                Console.WriteLine($"Delta{_quantity}{count} = {value} - {AvgQ} = {DeltaQi[count]}");
+                Console.WriteLine($"Delta{_quantity}{count + 1} = {value} - {AvgQ} = {DeltaQi[count]}");
                 count++;
             }
         }
