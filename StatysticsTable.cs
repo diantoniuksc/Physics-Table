@@ -56,6 +56,16 @@ namespace SolvePhysics
             CalculateSQ();
             Console.WriteLine("----- -----");
             Console.WriteLine();
+
+            CalculateTAlphaN();
+            Console.WriteLine("----- -----");
+            Console.WriteLine();
+
+            CalculateDeltaQT();
+            Console.WriteLine("----- -----");
+            Console.WriteLine();
+
+            CalculateE();
         }
 
 
@@ -106,6 +116,30 @@ namespace SolvePhysics
 
             SQ = Math.Sqrt((double)sumDeltaQiSq / N);
             Console.WriteLine($"ANSWER: S<{_quantity}> = {SQ}");
+        }
+
+        public void CalculateTAlphaN()
+        {
+            Console.WriteLine("YOU MUST FIND t alpha, n in Studen't table");
+            Console.WriteLine("Input t(alpha, n)");
+            TAlphaN = Convert.ToDouble(Console.ReadLine());
+            Console.WriteLine($"ANSWER: {TAlphaN}");
+        }
+
+        public void CalculateDeltaQT()
+        {
+            Console.WriteLine($"delta<{_quantity}> = S<{_quantity}> * t(alpha, n)");
+            DeltaQT = SQ * TAlphaN;
+            Console.WriteLine($"delta<{_quantity}> = {SQ} * {TAlphaN} = {DeltaQT}");
+            Console.WriteLine($"ANSWER: {DeltaQT}");
+        }
+
+        public void CalculateE()
+        {
+            Console.WriteLine($"E = delta<{_quantity}> / <{_quantity}>");
+            E = DeltaQT / AvgQ;
+            Console.WriteLine($"E = {DeltaQT} / {AvgQ} = {E}");
+            Console.WriteLine($"ANSWER: E = {E}");
         }
     }
 }
