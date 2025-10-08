@@ -157,6 +157,7 @@ namespace SolvePhysics
         /// <summary>
         /// Renders an image containing a table of all properties of this class
         /// </summary>
+        [SupportedOSPlatform("windows")]
         public void SaveAsTableImage(string filePath, string? title = null, bool overwrite = true)
         {
             //resolve path
